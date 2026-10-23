@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My TOEFL Reading Tests</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#667085;--line:#d8dee9;--accent:#4f36c8;--good:#16794d;--warn:#a86200}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}.shell{max-width:1050px;margin:auto;padding:24px 16px 60px}.top{display:flex;gap:12px;align-items:center}.top h1{margin-right:auto}.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#fff;border:1px solid var(--line)}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;margin-top:14px;box-shadow:0 7px 20px rgba(16,24,40,.05)}.tests{display:grid;gap:12px}.test{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.title{font-size:18px;font-weight:850}.meta{font-size:13px;color:var(--muted);margin-top:5px}.badge{display:inline-block;border-radius:999px;padding:5px 8px;font-size:12px;font-weight:850;margin-top:8px}.notstarted{background:#eef1f6}.progress{background:#fff6df;color:#845100}.done{background:#ecfdf3;color:var(--good)}.error{color:#b42318;font-weight:700}.hidden{display:none!important}
+@media(max-width:650px){.test{grid-template-columns:1fr}.top{flex-wrap:wrap}.top h1{width:100%}}
+</style></head><body>
+<div class="shell">
+ <div class="top"><h1>My Reading Tests</h1><span id="who"></span><button class="btn secondary" onclick="logout()">Logout</button></div>
+ <p id="status">Loading…</p><div id="tests" class="tests"></div>
+</div>
+<script>
+const BACKEND_URL='https://script.google.com/macros/s/AKfycbz2OCsZ2TC7TYejjDqGi8YXn-zh08lq5RHHG-ylnQcxqiyujolfAlv1QMOuLnuzBdtm/exec';
+const SESSION_KEY='toeflReading.studentSession.v2';
+let session=null;
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch(e){return null}}
+function jsonp(params,cb){const name='cb_'+Math.random().toString(36).slice(2);window[name]=d=>{try{cb(d)}finally{delete window[name];s.remove()}};const s=document.createElement('script');s.src=BACKEND_URL+'?'+new URLSearchParams({...params,callback:name,_:Date.now()});s.onerror=()=>cb({ok:false,error:'Network error'});document.body.appendChild(s)}
+function logout(){localStorage.removeItem(SESSION_KEY);location.href='index.html'}
+function load(){
+ session=getSession();if(!session?.token){location.href='index.html';return}
+ document.getElementById('who').textContent=session.name+' ('+session.nim+')';
+ jsonp({action:'studentDashboard',token:session.token},d=>{
+   if(!d.ok){document.getElementById('status').innerHTML='<span class="error">'+esc(d.error||'Session expired')+'</span>';setTimeout(logout,1200);return}
+   document.getElementById('status').textContent='';
+   render(d.tests||[]);
+ });
+}
+function render(tests){
+ const box=document.getElementById('tests');
+ if(!tests.length){box.innerHTML='<div class="card">No tests are currently available.</div>';return}
+ box.innerHTML=tests.map(t=>{
+   const st=t.attemptStatus||'not_started';
+   const cls=st==='completed'?'done':st==='in_progress'?'progress':'notstarted';
+   const label=st==='completed'?'Completed':st==='in_progress'?'In Progress':'Not Started';
+   let action='';
+   if(st==='not_started') action=`<button class="btn primary" onclick="openTest('${esc(t.testId)}')">Start Test</button>`;
+   else if(st==='in_progress') action=`<button class="btn primary" onclick="openTest('${esc(t.testId)}')">Continue</button>`;
+   else if(t.reviewMode==='full') action=`<button class="btn primary" onclick="review('${esc(t.testId)}')">Review Test</button>`;
+   else if(t.reviewMode==='score') action=`<button class="btn secondary" onclick="review('${esc(t.testId)}')">View Score</button>`;
+   else action='<span class="meta">Review not available yet.</span>';
+   const score=st==='completed'&&t.percent!==''?` • ${t.score}/${t.questionCount} (${t.percent}%)`:'';
+   return `<div class="card test"><div><div class="title">${esc(t.title)}</div><div class="meta">${t.questionCount} questions • ${t.durationMinutes} minutes${score}</div><span class="badge ${cls}">${label}</span></div><div>${action}</div></div>`;
+ }).join('');
+}
+function openTest(id){location.href='test.html?test='+encodeURIComponent(id)}
+function review(id){location.href='review.html?test='+encodeURIComponent(id)}
+window.addEventListener('DOMContentLoaded',load);
+</script></body></html>
