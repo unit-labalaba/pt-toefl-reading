@@ -7,18 +7,19 @@
 *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}button{font:inherit}.hidden{display:none!important}
 .top{height:72px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;gap:14px;padding:12px 18px;position:sticky;top:0;z-index:30}.brand{font-weight:900;font-size:20px}.test-title{opacity:.92;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.timer{margin-left:auto;font-size:22px;font-weight:900}.timer.low{color:#ffe4a8}
 .shell{max-width:1500px;margin:auto;padding:14px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(16,24,40,.06)}.loading{max-width:650px;margin:40px auto;padding:24px}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#fff;border:1px solid var(--line)}
-.workspace{display:grid;grid-template-columns:minmax(380px,46%) minmax(420px,54%);height:calc(100vh - 100px);overflow:hidden}.passage-pane{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}.question-pane{display:flex;flex-direction:column;min-height:0;background:#fff}.pane-head{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:#fafafa}.pane-head strong{margin-right:auto}.image-wrap{flex:1;overflow:auto;background:#eef1f6;padding:16px;text-align:center}.image-wrap img{max-width:none;transform-origin:top center;transition:.12s;box-shadow:0 4px 18px rgba(0,0,0,.15)}
-.navigator{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;gap:7px;flex-wrap:wrap;max-height:126px;overflow:auto}.navbtn{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:#fff;font-weight:800;cursor:pointer;position:relative}.navbtn.answered{background:#eaf8f0;border-color:#83c6a2;color:#12613b}.navbtn.flagged:after{content:"";position:absolute;right:2px;top:2px;width:8px;height:8px;background:#f2a000;border-radius:50%}.navbtn.current{outline:3px solid rgba(79,54,200,.22);border-color:var(--accent)}
-.questions-scroll{overflow:auto;flex:1;padding:14px 16px 100px;scroll-behavior:smooth}.qcard{padding:18px;margin-bottom:14px;border:1px solid var(--line);border-radius:14px}.qcard.active{border-color:#8b77e6;box-shadow:0 0 0 3px rgba(79,54,200,.08)}.qhead{display:flex;gap:10px}.qno{font-weight:900;color:var(--accent);min-width:34px}.qtext{font-size:17px;line-height:1.45;font-weight:700;flex:1}.flag{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;cursor:pointer}.flag.on{background:#fff6db;border-color:#e9bd55}.opts{display:grid;gap:9px;margin-top:14px}.opt{display:flex;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}.opt.selected{background:#f4f1ff;border-color:#8b77e6}
+.workspace{display:grid;grid-template-columns:minmax(380px,46%) minmax(420px,54%);height:calc(100vh - 100px);overflow:hidden}.passage-pane{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}.question-pane{display:flex;flex-direction:column;min-height:0;background:#fff}.pane-head{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:#fafafa}.pane-head strong{margin-right:auto}.image-wrap{flex:1;overflow:auto;background:#eef1f6;padding:16px;text-align:center}.image-wrap img{width:100%;height:auto;transform:none;transition:width .12s;box-shadow:0 4px 18px rgba(0,0,0,.15);background:#fff}
+.questions-scroll{overflow:auto;flex:1;padding:14px 16px 100px;scroll-behavior:smooth;position:relative}
+.passage-section{margin:6px 0 14px;padding:12px 14px;border-radius:12px;background:#f3f0ff;border:1px solid #d8cffc;color:#3f2aa8;font-weight:850;line-height:1.35;position:sticky;top:0;z-index:8}
+.passage-section span{display:block;font-size:12px;font-weight:700;color:#6c5cb8;margin-top:2px}.qcard{padding:18px;margin-bottom:14px;border:1px solid var(--line);border-radius:14px}.qcard.active{border-color:#8b77e6;box-shadow:0 0 0 3px rgba(79,54,200,.08)}.qhead{display:flex;gap:10px}.qno{font-weight:900;color:var(--accent);min-width:34px}.qtext{font-size:17px;line-height:1.45;font-weight:700;flex:1}.flag{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;cursor:pointer}.flag.on{background:#fff6db;border-color:#e9bd55}.opts{display:grid;gap:9px;margin-top:14px}.opt{display:flex;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}.opt.selected{background:#f4f1ff;border-color:#8b77e6}
 .bottom{position:absolute;right:14px;bottom:14px;left:calc(46% + 14px);display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:14px;padding:10px 12px;box-shadow:0 8px 25px rgba(0,0,0,.1);z-index:20}.bottom .status{font-size:13px;color:var(--muted);margin-right:auto}.mobile-pass{display:none}
-@media(max-width:850px){.workspace{display:block;height:auto}.passage-pane{display:none}.questions-scroll{overflow:visible;padding-bottom:110px}.bottom{position:fixed;left:12px;right:12px;bottom:12px}.mobile-pass{display:inline-block}.navigator{position:sticky;top:72px;z-index:15;background:#fff}.qcard{scroll-margin-top:210px}}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:18px}.modal-box{background:#fff;border-radius:15px;max-width:900px;width:100%;max-height:90vh;display:flex;flex-direction:column}.modal-head{padding:11px;display:flex;gap:9px;border-bottom:1px solid var(--line)}.modal-head strong{margin-right:auto}.modal-body{overflow:auto;background:#eef1f6;text-align:center;padding:14px}.modal-body img{max-width:none;transform-origin:top center}
+@media(max-width:850px){.workspace{display:block;height:auto}.passage-pane{display:none}.questions-scroll{overflow:visible;padding-bottom:110px}.bottom{position:fixed;left:12px;right:12px;bottom:12px}.mobile-pass{display:inline-block}.qcard{scroll-margin-top:150px}.passage-section{top:72px}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:18px}.modal-box{background:#fff;border-radius:15px;max-width:900px;width:100%;max-height:90vh;display:flex;flex-direction:column}.modal-head{padding:11px;display:flex;gap:9px;border-bottom:1px solid var(--line)}.modal-head strong{margin-right:auto}.modal-body{overflow:auto;background:#eef1f6;text-align:center;padding:14px}.modal-body img{width:100%;height:auto;transform:none;transition:width .12s}
 </style></head><body>
 <header class="top"><div class="brand">TOEFL Reading</div><div id="title" class="test-title">Loading…</div><button class="btn secondary mobile-pass" onclick="openModal()">Passage</button><div id="timer" class="timer">--:--</div></header>
 <div class="shell"><div id="loading" class="card loading">Loading your attempt…</div>
 <section id="workspace" class="workspace card hidden">
  <aside class="passage-pane"><div class="pane-head"><strong id="passageLabel"></strong><button class="btn secondary" onclick="zoom(-.15)">−</button><span id="zoomLabel">100%</span><button class="btn secondary" onclick="zoom(.15)">+</button><button class="btn secondary" onclick="resetZoom()">Reset</button></div><div class="image-wrap"><img id="passageImage"></div></aside>
- <main class="question-pane"><div id="navigator" class="navigator"></div><div id="questions" class="questions-scroll"></div></main>
+ <main class="question-pane"><div id="questions" class="questions-scroll"></div></main>
 </section>
 <div id="bottom" class="bottom hidden"><span id="saveStatus" class="status">Synced</span><button class="btn secondary" onclick="nextUnanswered()">Next unanswered</button><button class="btn primary" onclick="confirmSubmit()">Submit test</button></div>
 </div>
@@ -43,20 +44,69 @@ function load(){
 }
 function render(){
  document.getElementById('loading').classList.add('hidden');document.getElementById('workspace').classList.remove('hidden');document.getElementById('bottom').classList.remove('hidden');
- const nav=document.getElementById('navigator'),qs=document.getElementById('questions');nav.innerHTML='';qs.innerHTML='';
- test.questions.forEach(q=>{
-  const b=document.createElement('button');b.className='navbtn';b.id='nav-'+q.no;b.textContent=q.no;b.onclick=()=>activate(q.no,true);nav.appendChild(b);
-  const c=document.createElement('article');c.className='qcard';c.id='q-'+q.no;c.innerHTML=`<div class="qhead"><div class="qno">${q.no}.</div><div class="qtext">${esc(q.question)}</div><button id="flag-${q.no}" class="flag" onclick="flag(${q.no})">⚑</button></div><div class="opts">${q.options.map((o,i)=>`<label id="o-${q.no}-${i}" class="opt"><input type="radio" name="q${q.no}" value="${i}" onchange="answer(${q.no},${i})"><b>${'ABCD'[i]}.</b><span>${esc(o)}</span></label>`).join('')}</div>`;qs.appendChild(c);
+ const qs=document.getElementById('questions');qs.innerHTML='';
+ let previousPassage=null;
+ test.questions.forEach((q,index)=>{
+  if(q.passageId!==previousPassage){
+   const same=test.questions.filter(x=>x.passageId===q.passageId);
+   const first=same[0]?.no, last=same[same.length-1]?.no;
+   const p=test.passages[q.passageId]||{};
+   const h=document.createElement('div');h.className='passage-section';h.dataset.passage=q.passageId;
+   h.innerHTML=`${esc(p.label||q.passageId)}<span>Use this passage for Questions ${first}${first!==last?'–'+last:''}</span>`;
+   qs.appendChild(h);
+   previousPassage=q.passageId;
+  }
+  const c=document.createElement('article');c.className='qcard';c.id='q-'+q.no;c.dataset.passage=q.passageId;c.innerHTML=`<div class="qhead"><div class="qno">${q.no}.</div><div class="qtext">${esc(q.question)}</div><button id="flag-${q.no}" class="flag" onclick="flag(${q.no})">⚑</button></div><div class="opts">${q.options.map((o,i)=>`<label id="o-${q.no}-${i}" class="opt"><input type="radio" name="q${q.no}" value="${i}" onchange="answer(${q.no},${i})"><b>${'ABCD'[i]}.</b><span>${esc(o)}</span></label>`).join('')}</div>`;qs.appendChild(c);
  });
  Object.entries(attempt.answers||{}).forEach(([n,v])=>{const i=document.querySelector(`input[name=q${n}][value="${v}"]`);if(i){i.checked=true;i.closest('.opt').classList.add('selected')}});
  Object.keys(attempt.flags||{}).forEach(n=>{if(attempt.flags[n])document.getElementById('flag-'+n)?.classList.add('on')});
- activate(attempt.activeQuestion||test.questions[0].no,false);updateNav();
+ activate(attempt.activeQuestion||test.questions[0].no,false);
+ qs.addEventListener('scroll',handleQuestionScroll,{passive:true});
+} 
+function activate(no,scroll=true){
+ const q=test.questions.find(x=>String(x.no)===String(no));if(!q)return;
+ attempt.activeQuestion=q.no;
+ document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('active'));
+ document.getElementById('q-'+q.no)?.classList.add('active');
+ if(scroll)document.getElementById('q-'+q.no)?.scrollIntoView({behavior:'smooth',block:'start'});
+ if(currentPassage!==q.passageId){currentPassage=q.passageId;showPassage(q.passageId)}
+ cache();
 }
-function activate(no,scroll=true){const q=test.questions.find(x=>String(x.no)===String(no));if(!q)return;attempt.activeQuestion=q.no;document.querySelectorAll('.qcard').forEach(x=>x.classList.remove('active'));document.getElementById('q-'+q.no)?.classList.add('active');if(scroll)document.getElementById('q-'+q.no)?.scrollIntoView({behavior:'smooth',block:'start'});if(currentPassage!==q.passageId){currentPassage=q.passageId;showPassage(q.passageId)}updateNav();cache()}
-function showPassage(pid){const p=test.passages[pid]||{};document.getElementById('passageLabel').textContent=p.label||pid;document.getElementById('modalLabel').textContent=p.label||pid;document.getElementById('passageImage').src=p.image||'';document.getElementById('modalImage').src=p.image||'';resetZoom()}
-function answer(no,v){attempt.answers[String(no)]=v;document.querySelectorAll(`input[name=q${no}]`).forEach(i=>i.closest('.opt').classList.toggle('selected',i.checked));attempt.activeQuestion=no;cache();updateNav();sync()}
-function flag(no){attempt.flags[String(no)]=!attempt.flags[String(no)];document.getElementById('flag-'+no).classList.toggle('on',attempt.flags[String(no)]);cache();updateNav();sync()}
-function updateNav(){test.questions.forEach(q=>{const b=document.getElementById('nav-'+q.no);if(!b)return;b.classList.toggle('answered',attempt.answers[String(q.no)]!==undefined);b.classList.toggle('flagged',!!attempt.flags[String(q.no)]);b.classList.toggle('current',String(attempt.activeQuestion)===String(q.no))})}
+function showPassage(pid){
+ const p=test.passages[pid]||{};
+ document.getElementById('passageLabel').textContent=p.label||pid;
+ document.getElementById('modalLabel').textContent=p.label||pid;
+ document.getElementById('passageImage').src=p.image||'';
+ document.getElementById('modalImage').src=p.image||'';
+ applyZoom();
+}
+function handleQuestionScroll(){
+ const box=document.getElementById('questions');
+ const cards=[...box.querySelectorAll('.qcard')];
+ if(!cards.length)return;
+ const boxTop=box.getBoundingClientRect().top;
+ let active=cards[0];
+ for(const c of cards){
+   if(c.getBoundingClientRect().top-boxTop<=110) active=c; else break;
+ }
+ const no=Number(active.id.replace('q-',''));
+ const q=test.questions.find(x=>Number(x.no)===no);
+ if(!q)return;
+ document.querySelectorAll('.qcard').forEach(x=>x.classList.toggle('active',x===active));
+ attempt.activeQuestion=q.no;
+ if(currentPassage!==q.passageId){currentPassage=q.passageId;showPassage(q.passageId)}
+ cache();
+}
+function answer(no,v){
+ attempt.answers[String(no)]=v;
+ document.querySelectorAll(`input[name=q${no}]`).forEach(i=>i.closest('.opt').classList.toggle('selected',i.checked));
+ attempt.activeQuestion=no;cache();sync();
+}
+function flag(no){
+ attempt.flags[String(no)]=!attempt.flags[String(no)];
+ document.getElementById('flag-'+no).classList.toggle('on',attempt.flags[String(no)]);
+ cache();sync();
+}
 function sync(){document.getElementById('saveStatus').textContent='Saving…';post({action:'studentProgress',token:session.token,testId,attempt}).then(()=>setTimeout(()=>document.getElementById('saveStatus').textContent='Saved',500)).catch(()=>document.getElementById('saveStatus').textContent='Saved locally; sync failed')}
 function elapsed(){return Math.max(0,Math.floor((Date.now()-new Date(attempt.startedAt).getTime())/1000))}
 function remain(){return Math.max(0,test.durationMinutes*60-elapsed())}
@@ -65,6 +115,15 @@ function tick(){const r=remain(),m=Math.floor(r/60),s=r%60;const e=document.getE
 function nextUnanswered(){const q=test.questions.find(q=>attempt.answers[String(q.no)]===undefined);if(q)activate(q.no,true);else alert('All questions are answered.')}
 function confirmSubmit(){const u=test.questions.filter(q=>attempt.answers[String(q.no)]===undefined).length,f=Object.values(attempt.flags||{}).filter(Boolean).length;if(confirm(`Submit test?\n\nUnanswered: ${u}\nFlagged: ${f}\n\nYou cannot change answers after submission.`))submit(false)}
 function submit(auto){if(attempt.status==='completed')return;attempt.submittedAt=new Date().toISOString();attempt.timeUsedSec=elapsed();attempt.status='submitted';cache();post({action:'studentSubmit',token:session.token,testId,attempt});document.getElementById('bottom').classList.add('hidden');document.getElementById('workspace').classList.add('hidden');document.getElementById('loading').classList.remove('hidden');document.getElementById('loading').textContent=auto?'Time is up. Submitting…':'Submitting…';setTimeout(()=>location.href='dashboard.html',1400)}
-function zoom(d){zoomLevel=Math.min(2.5,Math.max(.5,zoomLevel+d));applyZoom()}function resetZoom(){zoomLevel=1;applyZoom()}function applyZoom(){document.getElementById('passageImage').style.transform=`scale(${zoomLevel})`;document.getElementById('modalImage').style.transform=`scale(${zoomLevel})`;document.getElementById('zoomLabel').textContent=Math.round(zoomLevel*100)+'%'}function openModal(){document.getElementById('modal').classList.remove('hidden')}function closeModal(){document.getElementById('modal').classList.add('hidden')}
+function zoom(d){zoomLevel=Math.min(2.5,Math.max(.3,zoomLevel+d));applyZoom()}
+function resetZoom(){zoomLevel=1;applyZoom()}
+function applyZoom(){
+ const pct=Math.round(zoomLevel*100)+'%';
+ document.getElementById('passageImage').style.width=pct;
+ document.getElementById('modalImage').style.width=pct;
+ document.getElementById('zoomLabel').textContent=Math.round(zoomLevel*100)+'%';
+}
+function openModal(){document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
 window.addEventListener('DOMContentLoaded',load);window.addEventListener('beforeunload',cache);
 </script></body></html>
