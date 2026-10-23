@@ -31,7 +31,7 @@
 <section id="forms" class="panel"><div class="card"><h2>Google Form Migration</h2><p class="muted">Imports 4-option Multiple Choice quiz items with answer keys. Assign passages/images afterward.</p><div class="field"><label>Form URL / ID</label><input id="formId"></div><div class="row" style="margin-top:10px"><button class="btn primary" onclick="importForm()">Import Form</button><span id="formStatus" class="status muted"></span></div></div></section>
 </div>
 <script>
-const BACKEND_URL='PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';let users=[],tests=[],responses=[],questions=[],passages={},pendingAccounts=[];
+const BACKEND_URL='https://script.google.com/macros/s/AKfycbz2OCsZ2TC7TYejjDqGi8YXn-zh08lq5RHHG-ylnQcxqiyujolfAlv1QMOuLnuzBdtm/exec';let users=[],tests=[],responses=[],questions=[],passages={},pendingAccounts=[];
 function K(){return document.getElementById('key').value.trim()}function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function show(id,b){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');b.classList.add('on')}
 function jsonp(p,cb){const n='cb_'+Math.random().toString(36).slice(2);window[n]=d=>{try{cb(d)}finally{delete window[n];s.remove()}};const s=document.createElement('script');s.src=BACKEND_URL+'?'+new URLSearchParams({...p,callback:n,_:Date.now()});s.onerror=()=>cb({ok:false,error:'Network error'});document.body.appendChild(s)}
