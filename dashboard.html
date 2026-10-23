@@ -12,14 +12,35 @@
  <p id="status">Loading…</p><div id="tests" class="tests"></div>
 </div>
 <script>
-const BACKEND_URL='https://script.google.com/macros/s/AKfycbz2OCsZ2TC7TYejjDqGi8YXn-zh08lq5RHHG-ylnQcxqiyujolfAlv1QMOuLnuzBdtm/exec';
+const BACKEND_URL='PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
 const SESSION_KEY='toeflReading.studentSession.v2';
 let session=null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+function acceptAuthFromHash(){
+  if(!location.hash.startsWith('#auth=')) return false;
+  try{
+    const raw=decodeURIComponent(location.hash.slice(6));
+    const data=JSON.parse(raw);
+    if(!data.token) return false;
+    localStorage.setItem(SESSION_KEY,JSON.stringify({
+      token:data.token,
+      nim:data.nim,
+      name:data.name,
+      expiresAt:data.expiresAt
+    }));
+    history.replaceState(null,'',location.pathname+location.search);
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
 function getSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch(e){return null}}
 function jsonp(params,cb){const name='cb_'+Math.random().toString(36).slice(2);window[name]=d=>{try{cb(d)}finally{delete window[name];s.remove()}};const s=document.createElement('script');s.src=BACKEND_URL+'?'+new URLSearchParams({...params,callback:name,_:Date.now()});s.onerror=()=>cb({ok:false,error:'Network error'});document.body.appendChild(s)}
 function logout(){localStorage.removeItem(SESSION_KEY);location.href='index.html'}
 function load(){
+ acceptAuthFromHash();
  session=getSession();if(!session?.token){location.href='index.html';return}
  document.getElementById('who').textContent=session.name+' ('+session.nim+')';
  jsonp({action:'studentDashboard',token:session.token},d=>{

@@ -25,14 +25,14 @@
     <section class="card">
       <h2 style="margin-top:0">Student Login</h2>
       <p class="muted">Use the NIM and password provided by your instructor.</p>
-      <form id="loginForm" method="post" target="authFrame">
+      <form id="loginForm" method="post">
         <input type="hidden" name="action" value="login">
+        <input type="hidden" id="returnUrl" name="returnUrl" value="">
         <div class="field"><label>NIM</label><input id="nim" name="nim" autocomplete="username" required></div>
         <div class="field"><label>Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
         <button class="btn primary" type="submit">Login</button>
       </form>
       <p id="loginStatus" class="error"></p>
-      <iframe id="authFrame" name="authFrame" class="hidden"></iframe>
     </section>
 
     <aside class="card">
@@ -43,25 +43,25 @@
   </div>
 </div>
 <script>
-const BACKEND_URL='https://script.google.com/macros/s/AKfycbz2OCsZ2TC7TYejjDqGi8YXn-zh08lq5RHHG-ylnQcxqiyujolfAlv1QMOuLnuzBdtm/exec';
+const BACKEND_URL='PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
 const SESSION_KEY='toeflReading.studentSession.v2';
 
 function configureForm(){
   if(!BACKEND_URL||BACKEND_URL.includes('PASTE_APPS_SCRIPT')){
     document.getElementById('loginStatus').textContent='Backend URL has not been configured.';
-    document.querySelector('#loginForm button').disabled=true;return;
+    document.querySelector('#loginForm button').disabled=true;
+    return;
   }
   document.getElementById('loginForm').action=BACKEND_URL;
 }
-window.addEventListener('message',e=>{
-  const d=e.data||{};
-  if(d.type!=='toeflAuth') return;
-  if(!d.ok){document.getElementById('loginStatus').textContent=d.error||'Login failed.';return}
-  localStorage.setItem(SESSION_KEY,JSON.stringify({token:d.token,nim:d.nim,name:d.name,expiresAt:d.expiresAt}));
-  location.href='dashboard.html';
-});
 window.addEventListener('DOMContentLoaded',()=>{
   configureForm();
+  document.getElementById('returnUrl').value=new URL('dashboard.html',location.href).href;
+  const loginError=new URLSearchParams(location.search).get('loginError');
+  if(loginError){
+    document.getElementById('loginStatus').textContent=loginError;
+    history.replaceState(null,'',location.pathname);
+  }
   try{
     const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
     if(s?.token && new Date(s.expiresAt)>new Date()) location.href='dashboard.html';
